@@ -32,24 +32,13 @@ function Navbar() {
                         Portals
                     </a>
 
-                    <a href="#analytics">
-                        Analytics
-                    </a>
-
-                    <a href="#notice">
-                        Notices
-                    </a>
                 </nav>
 
 
                 <div className="navbar-actions">
 
-                    <a href="#quick-lookup" className="quick-result-btn">
-                        Quick Result
-                    </a>
-
                     <a href="#login" className="login-btn">
-                        Portal Login
+                        Login
                         <i className="fa-solid fa-arrow-right-to-bracket"></i>
                     </a>
 

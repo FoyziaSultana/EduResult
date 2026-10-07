@@ -51,7 +51,7 @@
 
 .logo-icon i {
     font-size: 28px;
-    color: #38bdf8;
+    color: #cbe8f5;
 }
 
 
@@ -99,12 +99,12 @@
 
 
 .navbar-menu a:hover {
-    color: hsl(130, 60%, 68%);
+    color:rgb(176, 176, 221);
 }
 
 
 .navbar-menu a.active {
-    color: #818cf8;
+    color: #d3d4dd;
 }
 
 
@@ -121,7 +121,7 @@
     width: 100%;
     height: 2px;
 
-    background: #6366f1;
+    background: rgb(134, 134, 196);;
 
     border-radius: 2px;
 }
@@ -137,43 +137,12 @@
 }
 
 
-
-
-.quick-result-btn {
-    padding: 10px 16px;
-    background: #6366f1;
-    border: 1px solid #334155;
-
-    border-radius: 8px;
-
-    color: #e2e8f0;
-
-    text-decoration: none;
-
-    font-size: 22px;
-    font-weight: 500;
-
-    transition: all 0.3s ease;
-}
-
-
-.quick-result-btn:hover {
-    border-color: #64748b;
-
-    background: hwb(118 44% 30%);
-
-    color: #ffffff;
-}
-
-
-
-
 .login-btn {
     padding: 10px 20px;
 
     border-radius: 8px;
 
-    background: #6366f1;
+    background: rgb(134, 134, 196);
 
     color: white;
 
@@ -194,7 +163,7 @@
 
 
 .login-btn:hover {
-    background: hwb(118 44% 30%);
+    background:rgb(85, 85, 128);
 
     transform: translateY(-1px);
 }
