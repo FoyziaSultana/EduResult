@@ -31,7 +31,7 @@ function Hero() {
 
                     <div className="hero-buttons">
 
-                        <Link to="/signup" 
+                        <Link to="/signup"
                             className="hero-primary-btn"
                         >
                             Access Your Result Portal

@@ -1,6 +1,6 @@
 
 import "./navbar.css";
-
+import { Link} from "react-router-dom";
 function Navbar() {
     return (
         <header className="navbar">
@@ -37,10 +37,12 @@ function Navbar() {
 
                 <div className="navbar-actions">
 
-                    <a href="#login" className="login-btn">
-                        Login
-                        <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                    </a>
+                    <Link to="/login"
+                            className="login-btn"
+                        >
+                            Login
+                            <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                        </Link>
 
                 </div>
 
