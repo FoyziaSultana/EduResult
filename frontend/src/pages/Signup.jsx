@@ -47,11 +47,17 @@ function Signup() {
                 }, 1000)
             }
             else if (error) {
-                const details = error?.details[0].message;
-                handleError(details);
-            }
-            else if (!success) {
-                handleError(message);
+                const details = error?.details?.[0] || {};
+                const field = details?.path?.[0];
+                const message = details?.message || "";
+
+                if (field === "UserPassword") {
+                    handleError("Please use a strong password.");
+                } else if (field === "UserEmail") {
+                    handleError("Please enter a valid email address.");
+                } else {
+                    handleError("Please check your information and try again.");
+                }
             }
 
         } catch (error) {
@@ -60,7 +66,7 @@ function Signup() {
     }
     return (
         <div className="container">
-                <form onSubmit={handleSignUp}>
+            <form onSubmit={handleSignUp}>
                 <h1>Signup</h1>
                 <div>
                     <label htmlFor='UserEmail'>Email</label>
@@ -84,9 +90,9 @@ function Signup() {
 
                 <Link to="/login" >Login</Link>
             </form>
-            
-            
-            
+
+
+
 
             <ToastContainer />
 

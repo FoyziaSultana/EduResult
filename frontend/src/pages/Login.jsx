@@ -43,11 +43,10 @@ function Login() {
                 }, 1000)
             }
             else if (error) {
-                const details = error?.details[0].message;
-                handleError(details);
+                handleError("Invalid email or password.");
             }
             else if (!success) {
-                handleError(message);
+                handleError(message ||"Login failed. Please try again.");
             }
             console.log(result);
         } catch (error) {
