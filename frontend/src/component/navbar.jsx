@@ -1,12 +1,32 @@
-
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
-import { Link} from "react-router-dom";
 function Navbar() {
+    const navigate = useNavigate();
+
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const checkLogin = () => {
+            setLoggedIn(!!localStorage.getItem("token"));
+        };
+        checkLogin();
+        window.addEventListener("login", checkLogin);
+
+        return () => {
+            window.removeEventListener("login", checkLogin);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("loggedInUser");
+        setLoggedIn(false);
+        navigate("/");
+    };
     return (
         <header className="navbar">
             <div className="navbar-container">
-
-
 
                 <div className="navbar-logo">
                     <div className="logo-icon">
@@ -37,15 +57,16 @@ function Navbar() {
 
                 <div className="navbar-actions">
 
-                    <Link to="/login"
-                            className="login-btn"
-                        >
+                    {!loggedIn && ( <Link to="/login" className="login-btn">
                             Login
                             <i className="fa-solid fa-arrow-right-to-bracket"></i>
                         </Link>
-
+                    )}
+                    {loggedIn && ( <button onClick={handleLogout} className="login-btn">
+                            Logout
+                        </button>
+                    )}
                 </div>
-
             </div>
         </header>
     );
