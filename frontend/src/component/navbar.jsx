@@ -40,7 +40,7 @@ function Navbar() {
 
 
                 <nav className="navbar-menu">
-                    <onClick={() => navigate("/")} >
+                    <a href = "/" >
                         Home
                     </a>
 
