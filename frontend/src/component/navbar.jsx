@@ -40,7 +40,7 @@ function Navbar() {
 
 
                 <nav className="navbar-menu">
-                    <a href="#home" >
+                    <a href = "/" >
                         Home
                     </a>
 
