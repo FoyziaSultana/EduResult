@@ -7,7 +7,7 @@ const UserModel = require("../models/userSchema");
 const signUp = async (req, res) => {
     try {
 
-        const { UserName, UserEmail, UserPassword } = req.body;
+        const { UserEmail, UserPassword } = req.body;
         const user = await UserModel.findOne({ UserEmail });
         if (user) {
             return res.status(409).json({
@@ -19,7 +19,6 @@ const signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(UserPassword, 10);
 
         const userModel = new UserModel({
-            UserName,
             UserEmail,
             UserPassword: hashedPassword
         });
