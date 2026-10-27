@@ -1,3 +1,4 @@
+// require express
 const express = require("express");
 const cors = require("cors");
 // app create
@@ -19,11 +20,12 @@ const AuthRouter = require("./routes/authRouter");
 const permissionRoute = require('./routes/permissionRouter');
 const getUserAllPermissionRouter = require("./routes/getUserAllPermissionRoute");
 const roleRouter = require("./routes/roleRouter");
-
+const rolesAssignToUser = require("./routes/userRoleAssignRouter");
 
 app.use("/auth", AuthRouter);
 app.use('/permission', permissionRoute);
 app.use('/userPermission', getUserAllPermissionRouter);
 app.use('/role', roleRouter);
+app.use('/user', rolesAssignToUser);
 
 module.exports = app;
