@@ -33,19 +33,19 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="#student-login">
+                            <a href="/student-login">
                                 Student Login
                             </a>
                         </li>
 
                         <li>
-                            <a href="#faculty">
+                            <a href="/faculty">
                                 Faculty Grade Portal
                             </a>
                         </li>
 
                         <li>
-                            <a href="#admin">
+                            <a href="/admin">
                                 Controller Admin
                             </a>
                         </li>
@@ -61,19 +61,19 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="#grading">
+                            <a href="/grading">
                                 Grading Scale Policy
                             </a>
                         </li>
 
                         <li>
-                            <a href="#cgpa">
+                            <a href="/cgpa">
                                 CGPA Calculation Rules
                             </a>
                         </li>
 
                         <li>
-                            <a href="#transcript">
+                            <a href="/transcript">
                                 Transcript Application
                             </a>
                         </li>
@@ -90,19 +90,19 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="#status">
+                            <a href="/status">
                                 System Status
                             </a>
                         </li>
 
                         <li>
-                            <a href="#privacy">
+                            <a href="/privacy">
                                 Privacy Policy
                             </a>
                         </li>
 
                         <li>
-                            <a href="#terms">
+                            <a href="/terms">
                                 Terms of Service
                             </a>
                         </li>
