@@ -80,11 +80,11 @@ function Navbar() {
                         Home
                     </a>
 
-                    <a href="#features">
+                    <a href="/features">
                         Features
                     </a>
 
-                    <a href="#portal">
+                    <a href="/portal">
                         Portals
                     </a>
                     {loggedIn && permissions.includes("view_dashboard") && (
