@@ -29,4 +29,50 @@ const addDepartment = async (req, res) => {
     }
 };
 
-module.exports = { addDepartment };
+const updateDepartment = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { departmentName, departmentCode, status } = req.body;
+
+        if (!departmentName || !departmentCode) {
+            return res.status(400).json({success: false, message: "Department name and code are required"});
+        }
+
+        if (status && !["Active", "Inactive"].includes(status)) {
+            return res.status(400).json({success: false, message: "Invalid department status"});
+        }
+
+        const existingDepartment = await DepartmentModel.findOne({
+            _id: { $ne: id },
+            $or: [
+                { departmentName: departmentName.trim() },
+                { departmentCode: departmentCode.trim().toUpperCase() }
+            ]
+        });
+
+        if (existingDepartment) {return res.status(409).json({ success: false, message: "Department already exists"
+            });
+        }
+
+        const department = await DepartmentModel.findByIdAndUpdate(
+            id,
+            {
+                departmentName: departmentName.trim(),
+                departmentCode: departmentCode.trim().toUpperCase(),
+                status
+            },
+            {
+                new: true
+            }
+        );
+
+        if (!department) { return res.status(404).json({ success: false, message: "Department not found"});
+        }
+
+        return res.status(200).json({success: true, message: "Department updated successfully",department});
+
+    } catch (error) {
+        return res.status(500).json({success: false, message: "Failed to update department", error: error.message});
+    }
+};
+module.exports = { addDepartment, updateDepartment};
