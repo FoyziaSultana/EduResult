@@ -75,4 +75,22 @@ const updateDepartment = async (req, res) => {
         return res.status(500).json({success: false, message: "Failed to update department", error: error.message});
     }
 };
-module.exports = { addDepartment, updateDepartment};
+
+const deleteDepartment = async (req, res)=>{
+    try{
+        const { id } = req.params;
+
+        const department = await DepartmentModel.findByIdAndDelete(id);
+
+        if (!department) { return res.status(404).json({success: false, message: "Department not found"});
+        }
+
+        return res.status(201).json({success: true, message: "Department deleted successfully" });
+
+    } catch (error){
+        return res.status(500).json({ success: false, message: "Failed to delete department", error: error.message});
+    }
+};
+
+
+module.exports = { addDepartment, updateDepartment, deleteDepartment };
