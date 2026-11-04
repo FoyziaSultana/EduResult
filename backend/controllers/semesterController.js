@@ -94,5 +94,24 @@ const updateSemester = async (req, res) => {
     }
 };
 
+const deleteSemester = async (req, res) => {
+    try {
+        const { id } = req.params;
 
-module.exports = { addSemester, updateSemester };
+        const semester = await SemesterModel.findById(id);
+
+        if (!semester) {
+            return res.status(404).json({ success: false, message: "Semester not found!" });
+        }
+
+        await SemesterModel.findByIdAndDelete(id);
+
+        return res.status(200).json({ success: true, message: "Semester deleted successfully!" });
+
+    } catch (error) {
+
+        return res.status(500).json({ success: false, message: "Server error!" });
+    }
+};
+
+module.exports = { addSemester, updateSemester, deleteSemester };
