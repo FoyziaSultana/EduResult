@@ -39,4 +39,60 @@ const addSemester = async (req, res) => {
     }
 };
 
-module.exports = { addSemester };
+
+const updateSemester = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { department, year, term, status } = req.body;
+
+        const existingSemester = await SemesterModel.findById(id);
+
+        if (!existingSemester) { return res.status(404).json({ success: false, message: "Semester not found!"});
+        }
+
+        if (!department || !year || !term) {
+            return res.status(400).json({ success: false, message: "Please fillup all information!"});
+        }
+
+        if (!Number.isInteger(year) || !Number.isInteger(term) || year < 1 || year > 4 || term < 1 || term > 2) {
+            return res.status(400).json({ success: false, message: "Invalid year or term!" });
+        }
+
+        if (status && !["Active", "Inactive"].includes(status)) { return res.status(400).json({ success: false, message: "Invalid semester status!" });
+        }
+
+        const existingDepartment = await DepartmentModel.findById(department);
+
+        if (!existingDepartment) {
+            return res.status(404).json({ success: false, message: "Department not found!" });
+        }
+
+        const duplicateSemester = await SemesterModel.findOne({
+            _id: { $ne: id },
+            department, year, term
+        });
+
+        if (duplicateSemester) {
+            return res.status(400).json({ success: false, message: "This semester already exists in this department!"});
+        }
+
+        const updatedSemester = await SemesterModel.findByIdAndUpdate(
+            id,
+            {
+                department, year, term, status
+            },
+            {
+                returnDocument: 'after'
+            }
+        );
+
+        return res.status(200).json({ success: true, message: "Semester updated successfully!", semester: updatedSemester});
+
+    } catch (error) {
+
+        return res.status(500).json({ success: false, message: "Server error!" });
+    }
+};
+
+
+module.exports = { addSemester, updateSemester };
