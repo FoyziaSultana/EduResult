@@ -23,11 +23,14 @@ const getUserAllPermissionRouter = require("./routes/getUserAllPermissionRoute")
 const roleRouter = require("./routes/roleRouter");
 const rolesAssignToUser = require("./routes/userRoleAssignRouter");
 const departmentRouter = require("./routes/departmentRoute");
+const semesterRouter = require("./routes/semesterRouter");
+
 app.use("/auth", AuthRouter);
 app.use('/permission', permissionRoute);
 app.use('/userPermission', getUserAllPermissionRouter);
 app.use('/role', roleRouter);
 app.use('/user', rolesAssignToUser);
 app.use('/department', departmentRouter);
+app.use('./semester', semesterRouter);
 
 module.exports = app;
