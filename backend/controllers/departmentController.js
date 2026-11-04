@@ -29,6 +29,17 @@ const addDepartment = async (req, res) => {
     }
 };
 
+const getAllDepartments = async (req, res) => {
+    try {
+        const departments = await DepartmentModel.find();
+
+        return res.status(200).json({success: true, departments});
+
+    } catch (error) {
+        return res.status(500).json({success: false, message: "Failed to fetch departments", error: error.message});
+    }
+};
+
 const updateDepartment = async (req, res) => {
     try {
         const { id } = req.params;
@@ -62,7 +73,7 @@ const updateDepartment = async (req, res) => {
                 status
             },
             {
-                new: true
+                returnDocument: 'after'
             }
         );
 
@@ -93,4 +104,4 @@ const deleteDepartment = async (req, res)=>{
 };
 
 
-module.exports = { addDepartment, updateDepartment, deleteDepartment };
+module.exports = { addDepartment, getAllDepartments, updateDepartment, deleteDepartment };
