@@ -31,15 +31,15 @@ app.use('/userPermission', getUserAllPermissionRouter);
 app.use('/role', roleRouter);
 app.use('/user', rolesAssignToUser);
 app.use('/department', departmentRouter);
-app.use('./semester', semesterRouter);
+app.use('/semester', semesterRouter);
 
 
-/* app.use(express.static(
+/*app.use(express.static(
     path.join(__dirname, "../frontend/dist")
 ));
 app.get("/{*splat}", (req, res) => {
     res.sendFile(
         path.join(__dirname, "../frontend/dist/index.html")
     );
-}); */
+});*/
 module.exports = app;

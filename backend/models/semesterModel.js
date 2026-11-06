@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const semesterSchema = new mongoose.Schema({
     department: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "departments",
+        ref: "Department",
         required: true
     },
 

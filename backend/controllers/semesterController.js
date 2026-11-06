@@ -13,7 +13,7 @@ const addSemester = async (req, res) => {
         }
 
         if (!Number.isInteger(year) || !Number.isInteger(term) || year < 1 || year > 4 || term < 1 || term > 2) {
-            return res.status(400).json({ success: false, message: "Invalid year or term!"});
+            return res.status(400).json({ success: false, message: "Invalid year or term!" });
         }
 
         const existingDepartment = await DepartmentModel.findById(department);
@@ -28,17 +28,31 @@ const addSemester = async (req, res) => {
             return res.status(400).json({ success: false, message: "This semester already exists in this department!" });
         }
 
-        const newSemester = new SemesterModel({ department, year, term});
+        const newSemester = new SemesterModel({ department, year, term });
 
         await newSemester.save();
 
-        return res.status(201).json({ success: true, message: "Semester added successfully!", semester: newSemester});
+        return res.status(201).json({ success: true, message: "Semester added successfully!", semester: newSemester });
 
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Internal server error!"});
+        console.log(error);
+        return res.status(500).json({ success: false, message: "Internal server error!" });
     }
 };
 
+const getAllSemesters = async (req, res) => {
+    try {
+        const semesters = await SemesterModel.find().populate("department", "departmentName departmentCode").sort({
+        department: 1, year: 1, term: 1 
+    });
+
+        return res.status(200).json({ success: true, semesters });
+
+    } catch (error) {
+        console.log("Get All Semesters Error:", error);
+        return res.status(500).json({ success: false, message: "Server error!" });
+    }
+};
 
 const updateSemester = async (req, res) => {
     try {
@@ -47,18 +61,20 @@ const updateSemester = async (req, res) => {
 
         const existingSemester = await SemesterModel.findById(id);
 
-        if (!existingSemester) { return res.status(404).json({ success: false, message: "Semester not found!"});
+        if (!existingSemester) {
+            return res.status(404).json({ success: false, message: "Semester not found!" });
         }
 
         if (!department || !year || !term) {
-            return res.status(400).json({ success: false, message: "Please fillup all information!"});
+            return res.status(400).json({ success: false, message: "Please fillup all information!" });
         }
 
         if (!Number.isInteger(year) || !Number.isInteger(term) || year < 1 || year > 4 || term < 1 || term > 2) {
             return res.status(400).json({ success: false, message: "Invalid year or term!" });
         }
 
-        if (status && !["Active", "Inactive"].includes(status)) { return res.status(400).json({ success: false, message: "Invalid semester status!" });
+        if (status && !["Active", "Inactive"].includes(status)) {
+            return res.status(400).json({ success: false, message: "Invalid semester status!" });
         }
 
         const existingDepartment = await DepartmentModel.findById(department);
@@ -73,7 +89,7 @@ const updateSemester = async (req, res) => {
         });
 
         if (duplicateSemester) {
-            return res.status(400).json({ success: false, message: "This semester already exists in this department!"});
+            return res.status(400).json({ success: false, message: "This semester already exists in this department!" });
         }
 
         const updatedSemester = await SemesterModel.findByIdAndUpdate(
@@ -86,7 +102,7 @@ const updateSemester = async (req, res) => {
             }
         );
 
-        return res.status(200).json({ success: true, message: "Semester updated successfully!", semester: updatedSemester});
+        return res.status(200).json({ success: true, message: "Semester updated successfully!", semester: updatedSemester });
 
     } catch (error) {
 
@@ -109,9 +125,8 @@ const deleteSemester = async (req, res) => {
         return res.status(200).json({ success: true, message: "Semester deleted successfully!" });
 
     } catch (error) {
-
         return res.status(500).json({ success: false, message: "Server error!" });
     }
 };
 
-module.exports = { addSemester, updateSemester, deleteSemester };
+module.exports = { addSemester, getAllSemesters, updateSemester, deleteSemester };
