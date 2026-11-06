@@ -24,6 +24,7 @@ const roleRouter = require("./routes/roleRouter");
 const rolesAssignToUser = require("./routes/userRoleAssignRouter");
 const departmentRouter = require("./routes/departmentRoute");
 const semesterRouter = require("./routes/semesterRouter");
+const courseRouter = require("./routes/courseRouter");
 
 app.use("/auth", AuthRouter);
 app.use('/permission', permissionRoute);
@@ -32,7 +33,7 @@ app.use('/role', roleRouter);
 app.use('/user', rolesAssignToUser);
 app.use('/department', departmentRouter);
 app.use('/semester', semesterRouter);
-
+app.use('/course', courseRouter);
 
 /*app.use(express.static(
     path.join(__dirname, "../frontend/dist")
