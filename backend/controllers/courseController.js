@@ -78,4 +78,19 @@ const addCourse = async (req, res) => {
 
 };
 
-module.exports = {addCourse};
+getAllCourses = async(req, res) => {
+    try
+    {
+        const courses = await CourseModel.find().populate("department", "departmentName departmentCode")
+        .populate("semester", "year term").sort({courseCode: 1});
+        return res.status(200).json({
+            success: true, message: "Course added Successfully", courses
+        });
+    } catch(error)
+    {
+        return res.status(500).json({
+            success:false, message: "Server error"
+        });
+    }
+}
+module.exports = {addCourse, getAllCourses};
