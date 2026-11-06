@@ -1,7 +1,7 @@
 const DepartmentModel = require("../models/departmentModel");
 const addDepartment = async (req, res) => {
     try {
-        const { departmentName, departmentCode } = req.body;
+        const { departmentName, departmentCode, status } = req.body;
 
         if (!departmentName || !departmentCode) {
             return res.status(400).json({success: false, message: "Please fillup all information."});
@@ -18,7 +18,7 @@ const addDepartment = async (req, res) => {
             return res.status(400).json({success: false, message: "Department already exists" });
         }
 
-        const department = new DepartmentModel({departmentName, departmentCode});
+        const department = new DepartmentModel({departmentName, departmentCode, status});
 
         await department.save();
 

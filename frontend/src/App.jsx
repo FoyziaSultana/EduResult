@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import DashboardMainContent from "./component/DashboardComponent/dashboardMainContent";
 import DepartmentManagement from "./component/DashboardComponent/departmentManagement";
 import AddDepartment from "./component/DashboardComponent/addDepartment";
+import EditDepartment from "./component/DashboardComponent/editDepartment";
 
 function App() {
     return (
@@ -26,7 +27,7 @@ function App() {
                                 <Route index element={<DashboardMainContent />} />
                                 <Route path="departments" element={<DepartmentManagement />}/>
                                 <Route path="departments/add" element={<AddDepartment />}/>
-
+                                <Route path="departments/edit/:id" element={<EditDepartment />}/>
                                 </Route>
                 </Routes>
             </main>
