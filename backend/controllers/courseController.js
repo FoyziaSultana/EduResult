@@ -93,4 +93,71 @@ getAllCourses = async(req, res) => {
         });
     }
 }
-module.exports = {addCourse, getAllCourses};
+
+updateCourse = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {department, semester, courseCode, courseName, credit, status} = req.body;
+        const existingCourse = await CourseModel.find(id);
+        if(!existingCourse)
+        {
+            return res.status(404).json({
+                success:false, message: "Course not found"
+            });
+        }
+        if(!department || !semester || !courseCode || !CourseName || !credit)
+        {
+            return res.status(400).json({
+                success: false, message: "Please fillup all informations"
+            });
+        }
+        if(!Number.isFinite(Number(credit)) || Number(credit) < 0.5 || Number(credit) > 10)
+        {
+            return res.status(400).json({
+                success: false, message: "Invalid Course credit"
+            });
+        }
+        if (status && !["Active", "Inactive"].includes(status)) {
+            return res.status(400).json({ success: false, message: "Invalid course status"
+            });
+    }
+    const existingDepartment = await DepartmentModel.findById(department);
+
+        if (!existingDepartment) {
+            return res.status(404).json({ success: false, message: "Department not found!"
+            });
+        }
+
+        const existingSemester = await SemesterModel.findOne({_id: semester, department: department});
+
+        if (!existingSemester) {
+            return res.status(404).json({ success: false, message: "Semester not found in this department!" });
+        }
+
+        const duplicateCourse = await CourseModel.findOne({_id: { $ne: id }, department, courseCode: courseCode.trim().toUpperCase() });
+
+        if (duplicateCourse) {
+            return res.status(400).json({ success: false, message: "This course code already exists in this department!" });
+        }
+
+        existingCourse.department = department;
+        existingCourse.semester = semester;
+        existingCourse.courseCode = courseCode.trim().toUpperCase();
+        existingCourse.courseName = courseName.trim();
+        existingCourse.credit = Number(credit);
+
+        if (status) {
+            existingCourse.status = status;
+        }
+
+        await existingCourse.save();
+
+        return res.status(200).json({ success: true, message: "Course updated successfully!", course: existingCourse });
+
+
+}catch (error) {
+
+        return res.status(500).json({ success: false, message: "Server error!" });
+    }
+}
+module.exports = {addCourse, getAllCourses, updateCourse};
