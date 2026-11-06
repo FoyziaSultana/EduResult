@@ -160,4 +160,28 @@ updateCourse = async (req, res) => {
         return res.status(500).json({ success: false, message: "Server error!" });
     }
 }
-module.exports = {addCourse, getAllCourses, updateCourse};
+
+const deleteCourse = async (req, res) =>
+{
+    try{
+        const {id} = req.params;
+
+        const course = await CourseModel.findByIdAndDelete(id);
+        
+        if(!course)
+        {
+            return res.status(400).json({
+                success: false, message: "Course not found"
+            });
+        }
+        return res.status(200).json({
+            success: true, message: "Course deleted Successfully"
+        });
+    } catch(error)
+    {
+        return res.status(500).json({
+            seccess: false, message: "Server error"
+        });
+    }
+}
+module.exports = {addCourse, getAllCourses, updateCourse, deleteCourse};
