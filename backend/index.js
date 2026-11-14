@@ -1,14 +1,5 @@
-const app = require ("./app");
-const config = require ("./config/serverport");
-const PORT = config.app.port;
+
+const app = require("./app");
 require("./config/dbconnect");
 
-/*app.listen(PORT, ()=>
-{
-    console.log(`Server is running at at http://localhost:${PORT}`);
-});*/
-
-app.listen(PORT, ()=>
-{
-    console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;
