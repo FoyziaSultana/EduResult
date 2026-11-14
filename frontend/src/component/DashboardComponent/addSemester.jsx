@@ -1,5 +1,5 @@
 
-import "./DepartmentManagement.css";
+import "./departmentManagement.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleError, handleSuccess } from "../../toastmsg";
