@@ -1,5 +1,5 @@
 
-import "./DepartmentManagement.css";
+import "./departmentManagement.css";
 import { handleError, handleSuccess } from "../../toastmsg";
 import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
