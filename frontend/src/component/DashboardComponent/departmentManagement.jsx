@@ -198,19 +198,11 @@ function DepartmentManagement() {
 
                                             <td className="department-action-buttons">
 
-                                                <button
-                                                    className="department-edit-btn"
-                                                    onClick={() =>
-                                                        navigate(`/dashboard/departments/edit/${department._id}`)
-                                                    }
-                                                >
+                                                <button className="department-edit-btn" onClick={() => navigate(`/dashboard/departments/edit/${department._id}`) } >
                                                     Edit
                                                 </button>
 
-                                                <button
-                                                    className="department-delete-btn"
-                                                    onClick={() => deleteDepartment(department._id)}
-                                                >
+                                                <button className="department-delete-btn" onClick={() => deleteDepartment(department._id)} >
                                                     Delete
                                                 </button>
 

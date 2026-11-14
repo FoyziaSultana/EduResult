@@ -48,9 +48,7 @@ function Sidebar() {
                 }
 
             })
-            .catch(error => {
-                console.log("Permission Error:", error);
-            })
+            .catch(error)
             .finally(() => {
                 setLoading(false);
             });

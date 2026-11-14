@@ -1,4 +1,4 @@
-
+import DepartmentManagement from "./departmentManagement.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleError, handleSuccess } from "../../toastmsg";
@@ -29,9 +29,7 @@ function EditDepartment() {
                     setPermissions(data.permissions);
                 }
             })
-            .catch(error => {
-                console.log("Permission Error:", error);
-            });
+            .catch(error);
 
         fetch(`${import.meta.env.VITE_API_URL}/department/all`, {
             headers: {
@@ -122,18 +120,14 @@ function EditDepartment() {
                         <div className="dept-input">
                             <label>Department Name</label>
                             <input type="text" name="departmentName"
-                                value={departmentInfo.departmentName}
-                                onChange={handleChange}
-                                required
+                                value={departmentInfo.departmentName} onChange={handleChange} required
                             />
                         </div>
 
                         <div className="dept-input">
                             <label>Department Code</label>
                             <input type="text" name="departmentCode"
-                                value={departmentInfo.departmentCode}
-                                onChange={handleChange}
-                                required
+                                value={departmentInfo.departmentCode} onChange={handleChange} required
                             />
                         </div>
 

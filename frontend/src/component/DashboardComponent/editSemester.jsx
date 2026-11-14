@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleError, handleSuccess } from "../../toastmsg";
 import { ToastContainer } from "react-toastify";
-import "./DepartmentManagement.css";
+import "./departmentManagement.css";
 
 function EditSemester() {
 
@@ -172,12 +172,7 @@ function EditSemester() {
 
                             <label>Department</label>
 
-                            <select
-                                name="department"
-                                value={semesterInfo.department}
-                                onChange={handleChange}
-                                required
-                            >
+                            <select name="department" value={semesterInfo.department} onChange={handleChange} required >
 
                                 <option value="">Select Department</option>
 
@@ -200,12 +195,7 @@ function EditSemester() {
 
                             <label>Year</label>
 
-                            <select
-                                name="year"
-                                value={semesterInfo.year}
-                                onChange={handleChange}
-                                required
-                            >
+                            <select name="year" value={semesterInfo.year} onChange={handleChange} required >
 
                                 <option value="">Select Year</option>
                                 <option value="1">1</option>
@@ -221,12 +211,7 @@ function EditSemester() {
 
                             <label>Term</label>
 
-                            <select
-                                name="term"
-                                value={semesterInfo.term}
-                                onChange={handleChange}
-                                required
-                            >
+                            <select name="term" value={semesterInfo.term} onChange={handleChange} required >
 
                                 <option value="">Select Term</option>
                                 <option value="1">1</option>
@@ -240,18 +225,11 @@ function EditSemester() {
 
                     <div className="dept-actions">
 
-                        <button
-                            type="submit"
-                            className="dept-add-btn"
-                        >
+                        <button type="submit" className="dept-add-btn" >
                             Update Semester
                         </button>
 
-                        <button
-                            type="button"
-                            className="dept-cancel-btn"
-                            onClick={() => navigate("/dashboard/semesters")}
-                        >
+                        <button type="button" className="dept-cancel-btn" onClick={() => navigate("/dashboard/semesters")} >
                             Cancel
                         </button>
 

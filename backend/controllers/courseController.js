@@ -98,14 +98,14 @@ updateCourse = async (req, res) => {
     try{
         const {id} = req.params;
         const {department, semester, courseCode, courseName, credit, status} = req.body;
-        const existingCourse = await CourseModel.find(id);
+        const existingCourse = await CourseModel.findById(id);
         if(!existingCourse)
         {
             return res.status(404).json({
                 success:false, message: "Course not found"
             });
         }
-        if(!department || !semester || !courseCode || !CourseName || !credit)
+        if(!department || !semester || !courseCode || !courseName || !credit)
         {
             return res.status(400).json({
                 success: false, message: "Please fillup all informations"
@@ -156,7 +156,6 @@ updateCourse = async (req, res) => {
 
 
 }catch (error) {
-
         return res.status(500).json({ success: false, message: "Server error!" });
     }
 }

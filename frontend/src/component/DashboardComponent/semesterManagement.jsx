@@ -1,5 +1,5 @@
 
-import "./DepartmentManagement.css";
+import "./departmentManagement.css";
 import { handleError, handleSuccess } from "../../toastmsg";
 import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
@@ -30,9 +30,7 @@ function SemesterManagement() {
                 }
 
             })
-            .catch(error => {
-                console.log("Permission Error:", error);
-            })
+            .catch(error)
             .finally(() => {
                 setPermissionLoading(false);
             });
@@ -68,7 +66,6 @@ function SemesterManagement() {
             }
 
         } catch (error) {
-            console.log("Semester Fetch Error:", error);
             handleError(error.message);
         }
     };
@@ -139,21 +136,14 @@ function SemesterManagement() {
 
                 {hasPermission("add_semester") && (
 
-                    <button
-                        className="dept-add-btn"
-                        onClick={() => navigate("/dashboard/semesters/add")}
-                    >
+                    <button className="dept-add-btn" onClick={() => navigate("/dashboard/semesters/add")} >
                         + Add Semester
                     </button>
-
                 )}
 
             </div>
 
-            {hasPermission("view_semester") ||
-                hasPermission("add_semester") ||
-                hasPermission("update_semester") ||
-                hasPermission("delete_semester") ? (
+            {hasPermission("view_semester") || hasPermission("add_semester") || hasPermission("update_semester") || hasPermission("delete_semester") ? (
 
                 <div className="dept-table-card">
 
@@ -167,8 +157,7 @@ function SemesterManagement() {
                                 <th>Semester</th>
                                 <th>Status</th>
 
-                                {(hasPermission("update_semester") ||
-                                    hasPermission("delete_semester")) && (
+                                {(hasPermission("update_semester") || hasPermission("delete_semester")) && (
                                         <th>Action</th>
                                     )}
 
@@ -195,10 +184,7 @@ function SemesterManagement() {
                                         </td>
 
                                         <td>
-                                            <span className={`department-status ${semester.status === "Active"
-                                                    ? "status-active"
-                                                    : "status-inactive"
-                                                }`}>
+                                            <span className={`department-status ${semester.status === "Active" ? "status-active" : "status-inactive" }`}>
                                                 {semester.status}
                                             </span>
                                         </td>
@@ -210,11 +196,8 @@ function SemesterManagement() {
 
                                                     {hasPermission("update_semester") && (
 
-                                                        <button
-                                                            className="department-edit-btn"
-                                                            onClick={() =>
-                                                                navigate(`/dashboard/semesters/edit/${semester._id}`)
-                                                            }
+                                                        <button className="department-edit-btn"
+                                                            onClick={() => navigate(`/dashboard/semesters/edit/${semester._id}`) }
                                                         >
                                                             Edit
                                                         </button>
@@ -223,10 +206,7 @@ function SemesterManagement() {
 
                                                     {hasPermission("delete_semester") && (
 
-                                                        <button
-                                                            className="department-delete-btn"
-                                                            onClick={() => deleteSemester(semester._id)}
-                                                        >
+                                                        <button className="department-delete-btn" onClick={() => deleteSemester(semester._id)}>
                                                             Delete
                                                         </button>
 
@@ -244,8 +224,7 @@ function SemesterManagement() {
 
                                 <tr>
                                     <td colSpan={
-                                        (hasPermission("update_semester") ||
-                                            hasPermission("delete_semester")) ? 5 : 4
+                                        (hasPermission("update_semester") || hasPermission("delete_semester")) ? 5 : 4
                                     }>
                                         No semester records found.
                                     </td>

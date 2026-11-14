@@ -34,7 +34,7 @@ function AddDepartment() {
                 }
 
             })
-            .catch(error => console.log("Permission Error:", error));
+            .catch(error =>(error));
 
     }, []);
 
@@ -127,12 +127,8 @@ function AddDepartment() {
 
                             <label>Department Name</label>
 
-                            <input
-                                type="text"
-                                name="departmentName"
-                                placeholder="Enter department name"
-                                value={departmentInfo.departmentName}
-                                onChange={handleChange}
+                            <input type="text" name="departmentName"
+                                placeholder="Enter department name" value={departmentInfo.departmentName} onChange={handleChange}
                             />
 
                         </div>
@@ -142,11 +138,8 @@ function AddDepartment() {
                             <label>Department Code</label>
 
                             <input
-                                type="text"
-                                name="departmentCode"
-                                placeholder="Enter department code (e.g. CSE)"
-                                value={departmentInfo.departmentCode}
-                                onChange={handleChange}
+                                type="text" name="departmentCode" 
+                                placeholder="Enter department code (e.g. CSE)" value={departmentInfo.departmentCode} onChange={handleChange}
                             />
 
                         </div>
@@ -155,11 +148,7 @@ function AddDepartment() {
 
                             <label>Status</label>
 
-                            <select
-                                name="status"
-                                value={departmentInfo.status}
-                                onChange={handleChange}
-                            >
+                            <select name="status" value={departmentInfo.status} onChange={handleChange} >
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>
@@ -174,11 +163,7 @@ function AddDepartment() {
                             Add Department
                         </button>
 
-                        <button
-                            type="button"
-                            className="dept-cancel-btn"
-                            onClick={() => navigate("/dashboard/departments")}
-                        >
+                        <button type="button" className="dept-cancel-btn" onClick={() => navigate("/dashboard/departments")}>
                             Cancel
                         </button>
 
