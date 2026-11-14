@@ -34,7 +34,12 @@ app.use('/user', rolesAssignToUser);
 app.use('/department', departmentRouter);
 app.use('/semester', semesterRouter);
 app.use('/course', courseRouter);
-
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "EduResult Backend is running"
+    });
+});
 /*app.use(express.static(
     path.join(__dirname, "../frontend/dist")
 ));
