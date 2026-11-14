@@ -1,4 +1,4 @@
-import DepartmentManagement from "./departmentManagement.css";
+import"./departmentManagement.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleError, handleSuccess } from "../../toastmsg";
