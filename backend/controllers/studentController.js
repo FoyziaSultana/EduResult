@@ -72,5 +72,18 @@ const addStudent = async (req, res) => {
 };
 
 
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await StudentModel.find()
+            .populate("department", "departmentName departmentCode")
+            .populate("currentSemester", "year term");
 
-module.exports = { addStudent };
+        return res.status(200).json({ success: true, students});
+
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+
+module.exports = { addStudent, getAllStudents };
