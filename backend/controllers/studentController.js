@@ -86,4 +86,54 @@ const getAllStudents = async (req, res) => {
 };
 
 
-module.exports = { addStudent, getAllStudents };
+const updateStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { studentId, studentName, email, phone, department, session, status } = req.body;
+
+        if ( !studentId || !studentName || !email || !phone || !department || !session ) {
+            return res.status(400).json({ success: false, message: "Please fillup all informations" });
+        }
+
+        const student = await StudentModel.findById(id);
+
+        if (!student) {
+            return res.status(404).json({ success: false, message: "Student not found" });
+        }
+
+        const duplicateStudent = await StudentModel.findOne({
+            _id: { $ne: id },
+            $or: [ { studentId: studentId.trim() }, { email: email.trim().toLowerCase() } ]
+        });
+
+        if (duplicateStudent) {
+            return res.status(400).json({ success: false, message: "Student already exists" });
+        }
+
+        const existingDepartment = await DepartmentModel.findById(department);
+
+        if (!existingDepartment) { return res.status(404).json({ success: false, message: "Department not found" });
+        }
+
+        student.studentId = studentId.trim();
+        student.studentName = studentName.trim();
+        student.email = email.trim().toLowerCase();
+        student.phone = phone.trim();
+        student.session = session.trim();
+
+        if (status) {
+            student.status = status;
+        }
+
+        await student.save();
+
+        return res.status(200).json({ success: true, message: "Student updated successfully", student });
+
+    } catch (error) {
+
+        return res.status(500).json({ success: false, message: "Server error!" });
+    }
+};
+
+module.exports = { addStudent, getAllStudents, updateStudent };
