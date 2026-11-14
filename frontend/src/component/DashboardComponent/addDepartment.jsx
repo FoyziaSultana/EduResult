@@ -34,7 +34,7 @@ function AddDepartment() {
                 }
 
             })
-            .catch(error =>(error));
+            .catch(() => {})
 
     }, []);
 

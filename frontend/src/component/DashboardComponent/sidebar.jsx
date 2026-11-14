@@ -1,6 +1,8 @@
 
-import {LayoutDashboard, Users, GraduationCap, BookOpen, Building2, CalendarDays, ClipboardList,FileCheck,
-        FileText, ShieldCheck, KeyRound, LogOut } from "lucide-react";
+import {
+    LayoutDashboard, Users, GraduationCap, BookOpen, Building2, CalendarDays, ClipboardList, FileCheck,
+    FileText, ShieldCheck, KeyRound, LogOut
+} from "lucide-react";
 
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -48,7 +50,7 @@ function Sidebar() {
                 }
 
             })
-            .catch(error)
+            .catch(() => { })
             .finally(() => {
                 setLoading(false);
             });

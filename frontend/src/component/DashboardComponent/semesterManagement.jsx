@@ -30,7 +30,7 @@ function SemesterManagement() {
                 }
 
             })
-            .catch(error)
+            .catch(() => { })
             .finally(() => {
                 setPermissionLoading(false);
             });
@@ -158,8 +158,8 @@ function SemesterManagement() {
                                 <th>Status</th>
 
                                 {(hasPermission("update_semester") || hasPermission("delete_semester")) && (
-                                        <th>Action</th>
-                                    )}
+                                    <th>Action</th>
+                                )}
 
                             </tr>
 
@@ -184,7 +184,7 @@ function SemesterManagement() {
                                         </td>
 
                                         <td>
-                                            <span className={`department-status ${semester.status === "Active" ? "status-active" : "status-inactive" }`}>
+                                            <span className={`department-status ${semester.status === "Active" ? "status-active" : "status-inactive"}`}>
                                                 {semester.status}
                                             </span>
                                         </td>
@@ -197,7 +197,7 @@ function SemesterManagement() {
                                                     {hasPermission("update_semester") && (
 
                                                         <button className="department-edit-btn"
-                                                            onClick={() => navigate(`/dashboard/semesters/edit/${semester._id}`) }
+                                                            onClick={() => navigate(`/dashboard/semesters/edit/${semester._id}`)}
                                                         >
                                                             Edit
                                                         </button>
