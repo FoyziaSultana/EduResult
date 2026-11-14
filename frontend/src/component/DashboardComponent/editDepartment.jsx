@@ -1,4 +1,4 @@
-import"./departmentManagement.css";
+import "./departmentManagement.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleError, handleSuccess } from "../../toastmsg";
@@ -29,7 +29,9 @@ function EditDepartment() {
                     setPermissions(data.permissions);
                 }
             })
-            .catch(error);
+            .catch(error => {
+                handleError(error.message);
+            });
 
         fetch(`${import.meta.env.VITE_API_URL}/department/all`, {
             headers: {
