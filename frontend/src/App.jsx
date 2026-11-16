@@ -16,6 +16,9 @@ import EditSemester from "./component/DashboardComponent/editSemester";
 import CourseManagement from "./component/DashboardComponent/courseManagement";
 import AddCourse from "./component/DashboardComponent/addCourse";
 import EditCourse from "./component/DashboardComponent/editCourse";
+import StudentManagement from "./component/DashboardComponent/studentManagement";
+import AddStudent from "./component/DashboardComponent/addStudent";
+import EditStudent from "./component/DashboardComponent/editStudent";
 function App() {
     return (
         <div className="App">
@@ -39,6 +42,9 @@ function App() {
                                 <Route path="courses" element={<CourseManagement />}/>
                                 <Route path="courses/add" element={<AddCourse />}/>
                                 <Route path="courses/edit/:id" element={<EditCourse />} />
+                                <Route path="students" element={<StudentManagement/> } />
+                                <Route path="students/add" element={<AddStudent />} />
+                                <Route path="students/edit/:id" element={<EditStudent />} />
                                 </Route>
                 </Routes>
             </main>
