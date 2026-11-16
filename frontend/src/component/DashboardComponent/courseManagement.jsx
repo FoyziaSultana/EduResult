@@ -1,534 +1,311 @@
-
-import "./StudentManagement.css";
-
+import "./CourseManagement.css";
 import { useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { handleError, handleSuccess } from "../../toastmsg";
-
 import { ToastContainer } from "react-toastify";
 
-
-function StudentManagement() {
-
+function CourseManagement() {
 
     const navigate = useNavigate();
 
-
     const [permissions, setPermissions] = useState([]);
-    const [students, setStudents] = useState([]);
+    const [courses, setCourses] = useState([]);
     const [search, setSearch] = useState("");
     const [permissionLoading, setPermissionLoading] = useState(true);
 
-
     const hasPermission = (name) => {
-
         return permissions.includes(name);
-
     };
-
 
     const getPermissions = async () => {
 
-
         try {
 
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-
                 `${import.meta.env.VITE_API_URL}/userPermission/permissions`,
-
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
-
             );
-
 
             const data = await response.json();
 
-
             if (data.success) {
-
                 setPermissions(data.permissions);
-
             }
 
-
         } catch (error) {
-
             handleError(error.message);
-
         } finally {
-
             setPermissionLoading(false);
-
         }
-
 
     };
 
-
-    const getStudents = async () => {
-
+    const getCourses = async () => {
 
         try {
 
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-
-                `${import.meta.env.VITE_API_URL}/student/view`,
-
+                `${import.meta.env.VITE_API_URL}/course/all`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
-
             );
-
 
             const data = await response.json();
 
-
             if (data.success) {
-
-                setStudents(data.students || []);
-
+                setCourses(data.courses || []);
             } else {
-
-                handleError(data.message || "Failed to load students!");
-
+                handleError(data.message || "Failed to load courses!");
             }
 
-
         } catch (error) {
-
             handleError(error.message);
-
         }
 
-
     };
-
 
     useEffect(() => {
-
         getPermissions();
-        getStudents();
-
+        getCourses();
     }, []);
 
-
-    const deleteStudent = async (id) => {
-
+    const deleteCourse = async (id) => {
 
         const confirmDelete = window.confirm(
-
-            "Are you sure you want to delete this student?"
-
+            "Are you sure you want to delete this course?"
         );
-
 
         if (!confirmDelete) return;
 
-
         try {
 
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-
-                `${import.meta.env.VITE_API_URL}/student/delete/${id}`,
-
+                `${import.meta.env.VITE_API_URL}/course/delete/${id}`,
                 {
                     method: "DELETE",
-
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
-
             );
-
 
             const data = await response.json();
 
-
             if (data.success) {
-
                 handleSuccess(data.message);
-                getStudents();
-
+                getCourses();
             } else {
-
                 handleError(data.message);
-
             }
 
-
         } catch (error) {
-
             handleError(error.message);
-
         }
-
 
     };
 
-
-    const filteredStudents = students.filter((student) => {
-
+    const filteredCourses = courses.filter((course) => {
 
         const value = search.toLowerCase();
 
-
         return (
-
-            student.studentId?.toLowerCase().includes(value) ||
-
-            student.studentName?.toLowerCase().includes(value) ||
-
-            student.email?.toLowerCase().includes(value) ||
-
-            student.phone?.toLowerCase().includes(value) ||
-
-            student.department?.departmentName?.toLowerCase().includes(value) ||
-
-            `${student.currentSemester?.year || ""}-${student.currentSemester?.term || ""}`.includes(value) ||
-
-            student.session?.toLowerCase().includes(value)
-
+            course.courseCode?.toLowerCase().includes(value) ||
+            course.courseName?.toLowerCase().includes(value) ||
+            course.department?.departmentName?.toLowerCase().includes(value) ||
+            `${course.semester?.year || ""}-${course.semester?.term || ""}`.includes(value)
         );
-
 
     });
 
+    const groupedCourses = filteredCourses.reduce((groups, course) => {
 
-    const groupedStudents = filteredStudents.reduce((groups, student) => {
-
-
-        const departmentId = student.department?._id || "unknown";
-
-        const departmentName = student.department?.departmentName || "Unknown Department";
-
+        const departmentId = course.department?._id || "unknown";
+        const departmentName = course.department?.departmentName || "Unknown Department";
 
         if (!groups[departmentId]) {
-
             groups[departmentId] = {
-
                 name: departmentName,
-
-                students: []
-
+                courses: []
             };
-
         }
 
-
-        groups[departmentId].students.push(student);
-
+        groups[departmentId].courses.push(course);
 
         return groups;
 
-
     }, {});
 
-
     const showActions =
-
-        hasPermission("update_student") ||
-
-        hasPermission("delete_student");
-
+        hasPermission("update_course") ||
+        hasPermission("delete_course");
 
     if (permissionLoading) {
-
-        return <div className="student-container">Loading...</div>;
-
+        return <div className="course-page">Loading...</div>;
     }
-
 
     return (
 
+        <div className="course-page">
 
-        <div className="student-container">
-
-
-            <div className="student-header">
-
+            <div className="course-head">
 
                 <div>
-
-                    <h2>Student Management</h2>
-
+                    <h2>Course Management</h2>
                 </div>
 
-
-                {hasPermission("add_student") && (
-
+                {hasPermission("add_course") && (
                     <button
-
-                        className="student-add-btn"
-
-                        onClick={() => navigate("/dashboard/students/add")}
-
+                        className="course-add"
+                        onClick={() => navigate("/dashboard/courses/add")}
                     >
-
-                        + Add Student
-
+                        + Add Course
                     </button>
-
                 )}
-
 
             </div>
 
-
-            {(hasPermission("view_student") ||
-
-                hasPermission("add_student") ||
-
-                hasPermission("update_student") ||
-
-                hasPermission("delete_student")) && (
-
+            {(hasPermission("view_courses") ||
+                hasPermission("add_course") ||
+                hasPermission("update_course") ||
+                hasPermission("delete_course")) && (
 
                 <>
 
-
-                    <div className="student-top">
-
-                        <h3>All Students</h3>
-
+                    <div className="course-top">
+                        <h3>All Courses</h3>
 
                         <input
-
                             type="text"
-
-                            className="student-search"
-
-                            placeholder="Search student..."
-
+                            className="course-search"
+                            placeholder="Search course..."
                             value={search}
-
                             onChange={(e) => setSearch(e.target.value)}
-
                         />
-
                     </div>
 
+                    {Object.entries(groupedCourses).length > 0 ? (
 
-                    {Object.entries(groupedStudents).length > 0 ? (
+                        Object.entries(groupedCourses).map(([departmentId, group]) => (
 
+                            <div className="course-card" key={departmentId}>
 
-                        Object.entries(groupedStudents).map(([departmentId, group]) => (
-
-
-                            <div className="student-card" key={departmentId}>
-
-
-                                <div className="student-top">
-
+                                <div className="course-top">
                                     <div>
-
                                         <h3>{group.name} Department</h3>
-
-                                        <p>{group.students.length} Students</p>
-
+                                        <p>{group.courses.length} Courses</p>
                                     </div>
-
                                 </div>
 
+                                <div className="table-wrap">
 
-                                <div className="student-table-container">
-
-
-                                    <table className="student-table">
-
+                                    <table className="course-table">
 
                                         <thead>
-
                                             <tr>
-
                                                 <th>SL</th>
-
-                                                <th>Student ID</th>
-
-                                                <th>Name</th>
-
-                                                <th>Email</th>
-
-                                                <th>Phone</th>
-
+                                                <th>Course Code</th>
+                                                <th>Course Name</th>
                                                 <th>Semester</th>
-
-                                                <th>Session</th>
-
+                                                <th>Credit</th>
                                                 <th>Status</th>
-
                                                 {showActions && <th>Action</th>}
-
                                             </tr>
-
                                         </thead>
-
 
                                         <tbody>
 
+                                            {group.courses.map((course, index) => (
 
-                                            {group.students.map((student, index) => (
-
-
-                                                <tr key={student._id}>
-
+                                                <tr key={course._id}>
 
                                                     <td>{index + 1}</td>
-
-                                                    <td>{student.studentId}</td>
-
-                                                    <td>{student.studentName}</td>
-
-                                                    <td>{student.email}</td>
-
-                                                    <td>{student.phone}</td>
-
+                                                    <td>{course.courseCode}</td>
+                                                    <td>{course.courseName}</td>
 
                                                     <td>
-
-                                                        {student.currentSemester
-
-                                                            ? `${student.currentSemester.year}-${student.currentSemester.term}`
-
+                                                        {course.semester
+                                                            ? `${course.semester.year}-${course.semester.term}`
                                                             : "N/A"}
-
                                                     </td>
 
-
-                                                    <td>{student.session}</td>
-
+                                                    <td>{course.credit}</td>
 
                                                     <td>
-
-                                                        <span className={`student-status ${
-
-                                                            student.status === "Active" ? "status-on" : "status-off"
-
+                                                        <span className={`course-status ${
+                                                            course.status === "Active" ? "status-on" : "status-off"
                                                         }`}>
-
-                                                            {student.status}
-
+                                                            {course.status}
                                                         </span>
-
                                                     </td>
-
 
                                                     {showActions && (
-
                                                         <td>
+                                                            <div className="actions">
 
-                                                            <div className="student-actions">
-
-
-                                                                {hasPermission("update_student") && (
-
-                                                                    <button
-
-                                                                        className="student-edit-btn"
-
-                                                                        onClick={() => navigate(
-
-                                                                            `/dashboard/students/edit/${student._id}`
-
+                                                                {hasPermission("update_course") && (
+                                                                    <button className="edit-btn" onClick={() => navigate(
+                                                                            `/dashboard/courses/edit/${course._id}`
                                                                         )}
-
                                                                     >
-
                                                                         Edit
-
                                                                     </button>
-
                                                                 )}
 
-
-                                                                {hasPermission("delete_student") && (
-
-                                                                    <button
-
-                                                                        className="student-delete-btn"
-
-                                                                        onClick={() => deleteStudent(student._id)}
-
-                                                                    >
-
+                                                                {hasPermission("delete_course") && (
+                                                                    <button className="del-btn" onClick={() => deleteCourse(course._id)}>
                                                                         Delete
-
                                                                     </button>
-
                                                                 )}
-
 
                                                             </div>
-
                                                         </td>
-
                                                     )}
-
 
                                                 </tr>
 
-
                                             ))}
-
 
                                         </tbody>
 
-
                                     </table>
-
 
                                 </div>
 
-
                             </div>
-
 
                         ))
 
-
                     ) : (
 
-
-                        <div className="student-card">
-
-                            <p>No students found!</p>
-
+                        <div className="course-card">
+                            <p>No courses found!</p>
                         </div>
-
 
                     )}
 
-
                 </>
-
 
             )}
 
-
             <ToastContainer />
 
-
         </div>
-
 
     );
 
 }
 
-
-export default StudentManagement;
+export default CourseManagement;
