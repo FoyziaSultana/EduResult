@@ -26,6 +26,7 @@ const departmentRouter = require("./routes/departmentRoute");
 const semesterRouter = require("./routes/semesterRouter");
 const courseRouter = require("./routes/courseRouter");
 const studentRouter = require("./routes/studentRouter");
+const teacherRouter = require("./routes/teachersRouter");
 
 app.use("/auth", AuthRouter);
 app.use('/permission', permissionRoute);
@@ -36,6 +37,7 @@ app.use('/department', departmentRouter);
 app.use('/semester', semesterRouter);
 app.use('/course', courseRouter);
 app.use('/student', studentRouter);
+app.use('/teacher', teacherRouter);
 
 app.get("/", (req, res) => {
     res.status(200).json({

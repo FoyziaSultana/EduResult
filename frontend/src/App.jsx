@@ -19,6 +19,10 @@ import EditCourse from "./component/DashboardComponent/editCourse";
 import StudentManagement from "./component/DashboardComponent/studentManagement";
 import AddStudent from "./component/DashboardComponent/addStudent";
 import EditStudent from "./component/DashboardComponent/editStudent";
+import TeacherManagement from "./component/DashboardComponent/teacherManagement";
+import AddTeacher from "./component/DashboardComponent/addTeacher";
+import EditTeacher from "./component/DashboardComponent/editTeacher";
+
 function App() {
     return (
         <div className="App">
@@ -45,6 +49,9 @@ function App() {
                                 <Route path="students" element={<StudentManagement/> } />
                                 <Route path="students/add" element={<AddStudent />} />
                                 <Route path="students/edit/:id" element={<EditStudent />} />
+                                <Route path="teachers" element={<TeacherManagement />} />
+                                <Route path="teachers/add" element={<AddTeacher />} />
+                                <Route path="teachers/edit/:id" element={<EditTeacher />} />
                                 </Route>
                 </Routes>
             </main>

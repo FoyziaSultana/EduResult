@@ -1,0 +1,245 @@
+
+.teacher-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.teacher-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-left: 40%;
+}
+
+.teacher-header h2 {
+    font-size: 24px;
+    color: #1e293b;
+    margin-bottom: 5px;
+    text-align: center;
+    
+}
+
+.teacher-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.teacher-add-btn:hover {
+    background: #1d4ed8;
+}
+
+.teacher-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.teacher-search {
+    width: 250px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+.teacher-search:focus {
+    border-color: #2563eb;
+}
+
+.teacher-card {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.teacher-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.teacher-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.teacher-table th,
+.teacher-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.teacher-table th {
+    background: #f8fafc;
+    color: #334155;
+    font-weight: 600;
+}
+
+.teacher-table td {
+    color: #475569;
+}
+
+.teacher-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.teacher-status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.teacher-status.status-on {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.teacher-status.status-off {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.teacher-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.teacher-edit-btn,
+.teacher-delete-btn {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.teacher-edit-btn {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.teacher-delete-btn {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.teacher-edit-btn:hover {
+    background: #bfdbfe;
+}
+
+.teacher-delete-btn:hover {
+    background: #fecaca;
+}
+
+@media (max-width: 650px) {
+    .teacher-container {
+        margin-top: 80px;
+    }
+
+    .teacher-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .teacher-top {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .teacher-search {
+        width: 100%;
+    }
+
+    .teacher-card {
+        padding: 15px;
+    }
+}
+
+.teacher-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.teacher-form-grid label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #334155;
+    font-weight: 600;
+}
+
+.teacher-input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+.teacher-input:focus {
+    border-color: #2563eb;
+}
+
+.teacher-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.teacher-submit-btn,
+.teacher-cancel-btn {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.teacher-submit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.teacher-submit-btn:hover {
+    background: #1d4ed8;
+}
+
+.teacher-cancel-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.teacher-cancel-btn:hover {
+    background: #cbd5e1;
+}
+
+@media (max-width: 650px) {
+    .teacher-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
